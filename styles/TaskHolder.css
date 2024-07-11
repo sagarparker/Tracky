@@ -1,0 +1,17 @@
+.taskHolder{
+    background-color: white;
+    height: 50vh;
+    width: 30vw;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+}
+
+@media screen and (max-width:500px) {
+    .taskHolder{
+      width: 90vw;
+      height: 70vh;
+    }
+  }
