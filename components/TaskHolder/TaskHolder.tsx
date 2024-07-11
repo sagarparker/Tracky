@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import "@styles/TaskHolder.css";
 import Form from '@components/Form';
 import Tasks from '@components/Tasks';
@@ -10,10 +10,28 @@ interface TaskContext {
   addTask: (item:string)=>void;
 };
 
+type ApiResponse = {
+  id: number,
+  task: string,
+  is_active:string,
+  time: bigint
+}
+
 let TaskContext = createContext<TaskContext|null>(null);
 
 function TaskHolder(){
   let [task,setTask] = useState<string[]>([]);
+
+  useEffect(()=>{
+    const getData = async() => {
+      const query = await fetch("http://localhost:3000/api/tasks");
+      let response = await query.json();
+      response.result.forEach((data:ApiResponse)=>{
+        addTask(data.task);
+      })
+    }
+    getData();
+  },[]);
 
   const addTask =(item:string)=>{
     setTask(prevArray => [...prevArray, item]);
