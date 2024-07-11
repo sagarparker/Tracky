@@ -7,10 +7,29 @@ function Form() {
   let [input,setInput] = useState("");
 
   let handleInputChange = (e:ChangeEvent<HTMLInputElement>) =>{
-    setInput(e.target.value)
+    e.preventDefault();
+    setInput(e.target.value);
   }
 
   let addTaskToList = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      "task": input
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw
+    };
+
+    fetch("https://tracky-ruddy.vercel.app/api/addTask", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+
     taskContext?.addTask(input);
     setInput('');
   }
@@ -21,7 +40,7 @@ function Form() {
         <input type="text" value={input} onChange={handleInputChange} placeholder='Enter a new task'  className='taskInput'/>
       </div>
       <div className="col-span-2">
-        <button className='addButton' onClick={addTaskToList}>Add</button>
+        <button className='addButton' onClick={addTaskToList} disabled={!input}>Add</button>
       </div>
     </div>
   )

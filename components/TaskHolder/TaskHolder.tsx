@@ -13,8 +13,8 @@ interface TaskContext {
 type ApiResponse = {
   id: number,
   task: string,
-  is_active:string,
-  time: bigint
+  is_active:boolean,
+  time: number
 }
 
 let TaskContext = createContext<TaskContext|null>(null);
@@ -24,7 +24,7 @@ function TaskHolder(){
 
   useEffect(()=>{
     const getData = async() => {
-      const query = await fetch("http://localhost:3000/api/tasks");
+      const query = await fetch("https://tracky-ruddy.vercel.app/api/tasks");
       let response = await query.json();
       response.result.forEach((data:ApiResponse)=>{
         addTask(data.task);
