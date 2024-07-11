@@ -5,40 +5,41 @@ import "@styles/TaskHolder.css";
 import Form from '@components/Form';
 import Tasks from '@components/Tasks';
 
-interface TaskContext {
-  task: string[];
-  addTask: (item:string)=>void;
-};
-
-type ApiResponse = {
+export type TaskData = {
   id: number,
   task: string,
   is_active:boolean,
-  time: number
+  time: number,
+  email: string
 }
+
+interface TaskContext {
+  taskData: TaskData[];
+  addTask: (item:TaskData)=>void;
+};
 
 let TaskContext = createContext<TaskContext|null>(null);
 
 function TaskHolder(){
-  let [task,setTask] = useState<string[]>([]);
+  let [taskData,setTaskData] = useState<TaskData[]>([]);
 
   useEffect(()=>{
     const getData = async() => {
-      const query = await fetch("https://tracky-ruddy.vercel.app/api/tasks");
+      const query = await fetch("https://tracky-tracker.vercel.app//api/tasks");
       let response = await query.json();
-      response.result.forEach((data:ApiResponse)=>{
-        addTask(data.task);
+      response.result.forEach((data:TaskData)=>{
+        addTask(data);
       })
     }
     getData();
   },[]);
 
-  const addTask =(item:string)=>{
-    setTask(prevArray => [...prevArray, item]);
+  const addTask =(item:TaskData)=>{
+    setTaskData(prevArray => [...prevArray, item]);
   }
 
   return (
-    <TaskContext.Provider value={{task,addTask}}>
+    <TaskContext.Provider value={{taskData,addTask}}>
       <div className='taskHolder'>
           <Form></Form>
           <Tasks></Tasks>

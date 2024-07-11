@@ -1,22 +1,27 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 import '@styles/Form.css';
-import { TaskContext } from './TaskHolder/TaskHolder';
+import { TaskContext, TaskData } from './TaskHolder/TaskHolder';
+import { useSession } from 'next-auth/react';
+
 
 function Form() {
   let taskContext = useContext(TaskContext);
   let [input,setInput] = useState("");
+  const {data:session} = useSession();
 
   let handleInputChange = (e:ChangeEvent<HTMLInputElement>) =>{
     e.preventDefault();
     setInput(e.target.value);
   }
 
-  let addTaskToList = () => {
+  let addTaskToList = async() => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    let email = session?.user?.email;
 
     const raw = JSON.stringify({
-      "task": input
+      "task": input,
+      "email": email
     });
 
     const requestOptions = {
@@ -25,12 +30,16 @@ function Form() {
       body: raw
     };
 
-    fetch("https://tracky-ruddy.vercel.app/api/addTask", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    let response: TaskData = await (await fetch("https://tracky-tracker.vercel.app//api/addTask", requestOptions)).json();
+    
 
-    taskContext?.addTask(input);
+    taskContext?.addTask({
+      id:response.id,
+      is_active:response.is_active,
+      task:response.task,
+      time:response.time,
+      email: email!
+    });
     setInput('');
   }
 

@@ -6,7 +6,8 @@ type NewTask = {
     id: string,
     task: string,
     is_active:boolean,
-    time: number
+    time: number,
+    email: string
 }
 
 export async function POST(request: Request, response: Response) {
@@ -19,11 +20,12 @@ export async function POST(request: Request, response: Response) {
             id: id,
             task: data.task,
             is_active: true,
-            time: currentEpochTime
+            time: currentEpochTime,
+            email: data.email
         }
 
         const result =
-        await sql`INSERT INTO tasks VALUES (${new_task.id},${new_task.task},${new_task.is_active},${new_task.time});`;
+        await sql`INSERT INTO tasks VALUES (${new_task.id},${new_task.task},${new_task.is_active},${new_task.time},${new_task.email});`;
         return NextResponse.json({ ...new_task }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
