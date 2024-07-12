@@ -16,7 +16,7 @@ function Nav() {
         </a>
         {
             session? 
-            <button onClick={()=>signOut()} className="flex justify-between items-center text-white bg-transparent text-l focus:outline-none focus:ring-4 focus:ring-gray-300 py-2.5 mb-2 ">
+            <button onClick={()=>signOut()} className="flex justify-between items-center text-white bg-transparent text-l py-2.5 mb-2 out">
             <img src={img_src!} height={30} width={30} className="rounded-full mr-2"/>
             Logout
             </button>:null

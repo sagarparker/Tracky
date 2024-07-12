@@ -11,7 +11,7 @@ export default function Home() {
       <Nav></Nav>
       <div className="mainDiv">
         {session ? <TaskHolder></TaskHolder>
-          :<button onClick={()=>signIn()} className="text-black bg-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2">Login</button>
+          :<button onClick={()=>signIn()} className="text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2">Login</button>
         }
       </div>
 
