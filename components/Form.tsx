@@ -30,7 +30,7 @@ function Form() {
       body: raw
     };
 
-    let response: TaskData = await (await fetch("https://tracky-tracker.vercel.app//api/addTask", requestOptions)).json();
+    let response: TaskData = await (await fetch("https://tracky-tracker.vercel.app/api/addTask", requestOptions)).json();
     
 
     taskContext?.addTask({

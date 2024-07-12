@@ -25,7 +25,7 @@ function TaskHolder(){
 
   useEffect(()=>{
     const getData = async() => {
-      const query = await fetch("https://tracky-tracker.vercel.app//api/tasks");
+      const query = await fetch("https://tracky-tracker.vercel.app/api/tasks");
       let response = await query.json();
       response.result.forEach((data:TaskData)=>{
         addTask(data);
