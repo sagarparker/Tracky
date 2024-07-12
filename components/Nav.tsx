@@ -15,8 +15,8 @@ function Nav() {
             <span className="self-center text-2xl font-semibold whitespace-nowrap" style={{color:"white"}}>Tracky</span>
         </a>
         {
-            session ? 
-            <button onClick={()=>signOut()} className="flex justify-between items-center text-white bg-transparent font-semibold text-l focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2.5 mb-2 ">
+            session? 
+            <button onClick={()=>signOut()} className="flex justify-between items-center text-white bg-transparent text-l focus:outline-none focus:ring-4 focus:ring-gray-300 py-2.5 mb-2 ">
             <img src={img_src!} height={30} width={30} className="rounded-full mr-2"/>
             Logout
             </button>:null
