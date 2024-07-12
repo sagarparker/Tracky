@@ -12,7 +12,7 @@ function Nav() {
     <nav className="bg-transparent border-gray-200 flex justify-between pl-4 pr-4 pt-2 pb-2">
         <a href="https://tracky-tracker.vercel.app/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <Image src={Tracky} width={40} color='white' alt="Tracky Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tracky</span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap" style={{color:"white"}}>Tracky</span>
         </a>
         {
             session ? 
@@ -21,7 +21,6 @@ function Nav() {
             Logout
             </button>:null
         }
-
     </nav>
 
   )
